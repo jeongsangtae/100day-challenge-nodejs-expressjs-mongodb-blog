@@ -120,4 +120,24 @@ router.post("/posts/:id/edit", async function (req, res) {
   // res.redirect("/posts");
 });
 
+router.post("/posts/:id/delete", async function (req, res) {
+  // 내가 짠 코드
+  const postId = req.params.id;
+  await db
+    .getDb()
+    .collection("posts")
+    .deleteOne({ _id: new ObjectId(postId) });
+
+  res.redirect("/posts");
+
+  // 강의에서 짠 코드
+  // const postId = new ObjectId(req.params.id);
+  // const result = await db
+  //   .getDb()
+  //   .collection("posts")
+  //   .deleteOne({ _id: postId });
+
+  // res.redirect("/posts");
+});
+
 module.exports = router;
