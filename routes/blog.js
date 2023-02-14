@@ -60,6 +60,17 @@ router.get("/posts/:id", async function (req, res) {
   if (!post) {
     return res.status(404).render("404");
   }
+
+  post.humanReadableDate = post.date.toLocaleDateString("ko-KR", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  post.date = post.date.toISOString();
+
   res.render("post-detail", { post: post });
 });
 
