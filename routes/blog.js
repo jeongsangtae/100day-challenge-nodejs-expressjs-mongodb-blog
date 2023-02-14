@@ -55,7 +55,11 @@ router.get("/posts/:id", async function (req, res) {
   const post = await db
     .getDb()
     .collection("posts")
-    .findOne({ _id: new ObjectId(postId) });
+    .findOne({ _id: new ObjectId(postId) }, { summary: 0 });
+
+  if (!post) {
+    return res.status(404).render("404");
+  }
   res.render("post-detail", { post: post });
 });
 
